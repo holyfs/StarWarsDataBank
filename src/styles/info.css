@@ -1,0 +1,12 @@
+.card-title{
+    color: rgb(255, 193, 7)
+}
+.card-text{
+    color: white;
+}
+.card{
+    border: 1px solid rgb(255, 193, 7);
+    border-radius: 4px;
+    margin-bottom: 4px;
+    background-color: black;
+}

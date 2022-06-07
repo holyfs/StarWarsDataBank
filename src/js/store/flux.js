@@ -1,6 +1,9 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			personajes:[],
+			vehicles:[],
+			planets:[],
 			demo: [
 				{
 					title: "FIRST",
@@ -13,8 +16,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			]
+			
 		},
 		actions: {
+			setVehicles: (vehicles)=>{
+				setStore ({vehicles: vehicles})
+			},
+			setPersonajes: (personajes)=>{
+				setStore ({personajes: personajes})
+			},
+			setPlanets: (planets) =>{
+				setStore ({planets: planets})
+			},
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
@@ -24,6 +37,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
 			},
+
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();
@@ -34,9 +48,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (i === index) elm.background = color;
 					return elm;
 				});
-
+ 
 				//reset the global store
-				setStore({ demo: demo });
+				setStore({ demo: demo })
 			}
 		}
 	};

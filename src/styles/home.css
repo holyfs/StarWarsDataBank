@@ -1,0 +1,27 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.backGround{
+    background-image: url("https://fondosmil.com/fondo/5445.jpg") ;
+}
+.header{
+    padding-top: 20px;
+    color: rgb(255, 193, 7);
+    text-align: center;
+    
+}
+.Characters{
+    color: rgb(255, 193, 7);
+    
+    
+}
+.Vehicles{
+    color: rgb(255, 193, 7);
+}
+.Planets{
+    color: rgb(255, 193, 7);
+}
+.scroll{
+    overflow-x: scroll;
+}
