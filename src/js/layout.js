@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
-
 import { Home } from "./views/home.js";
 import { Bio } from "./views/Bio.js";
+import { Planet } from "./views/Planet.js"
+import { Vehicle } from "./views/Vehicle.js"
 import { Single } from "./views/single";
 import injectContext from "./store/appContext";
 
@@ -25,9 +26,13 @@ const Layout = () => {
 					<Routes>
 						<Route exact path="/" element={<Home />}>
 						</Route>
-						<Route exact path="/Bio" element={<Bio />}>	
+						<Route exact path="/Bio/:id" element={<Bio />}>	
 						</Route>
-						<Route exact path="/single/:theid" element={<Single />}>
+						<Route exact path="/Planet/:id" element={<Planet />}>	
+						</Route>
+						<Route exact path="/Vehicle/:id" element={<Vehicle />}>	
+						</Route>
+						<Route path="*" element={<Single />}>
 						</Route>
 					</Routes>
 					<Footer />

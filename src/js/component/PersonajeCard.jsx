@@ -1,9 +1,23 @@
-import { useNavigate } from "react-router";
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { BsSuitHeart } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import api from "../../Api/Api.js"
+import { Context } from "../store/appContext.js";
 
 
 const PersonajeCard = (props) => {
+  const { store, actions } = useContext(Context);
+  let navigate = useNavigate()
+  const [properties, setProperties] = useState({});
+
+ useEffect(()=>{
+    api.BioDataPeople(props.id).then((results)=>{
+      return results.json()
+    }) .then((data)=>{
+      setProperties(data.result.properties)
+    }) 
+  },[])
+ 
   return (
     <>
       <div
@@ -12,28 +26,30 @@ const PersonajeCard = (props) => {
         style={{ width: 18 + "rem", height: 28 + "rem" }}
       >
         <img
-          src="https://www.freepnglogos.com/uploads/star-wars-logo-15.png"
+          src={`https://starwars-visualguide.com/assets/img/characters/${props.id}.jpg`}
           className="card-img-top"
-          alt="Lego Star Wars"
-          style={{ width: 200 + "px", height: 200 + "px", margin: "auto" }}
+          alt="Image Not Found 404"
+          style={{ width: 17.9 + "rem", height: 14 + "rem", margin: "auto"}}
         />
         <div className="card-body">
           <h5 className="card-title">{props.name}</h5>
           <p className="card-text">
-            Gender: <strong>{props.gender}</strong>{" "}
+            Gender: <strong>{!properties.gender?<span>Loading...</span>:properties.gender}</strong>{" "}
           </p>
           <p className="card-text">
-            Hair color: <strong>{props.hair}</strong>{" "}
+            Hair color: <strong>{!properties.hair_color?<span>Loading...</span>:properties.hair_color}</strong>{" "}
           </p>
           <p className="card-text">
-            Eye color: <strong>{props.eye}</strong>
+            Eye color: <strong>{!properties.eye_color?<span>Loading...</span>:properties.eye_color}</strong>
           </p>
-          <div className="container-fluid">
+          <div className="container-fluid mt-2">
             <div className="row">
-              <button  className="col">
+              <button  className="col" onClick={()=>navigate(`/Bio/${props.id}`)}>
                 Bio
               </button>
-              <button  className="col">
+              <button  className="col" onClick={() => {
+                  actions.saveFavorite(props.name, props.id)
+                }}>
                 <BsSuitHeart />
               </button>
             </div>
@@ -43,5 +59,6 @@ const PersonajeCard = (props) => {
     </>
   );
 };
+
 
 export default PersonajeCard;

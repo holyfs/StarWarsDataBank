@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { BsAppIndicator } from "react-icons/bs";
+import Api from "../../Api/Api.js";
 import getState from "./flux.js";
+
 
 // Don't change, here is where we initialize our context, by default it's just going to be null.
 export const Context = React.createContext(null);
@@ -22,6 +25,9 @@ const injectContext = PassedComponent => {
 		);
 
 		useEffect(() => {
+			state.actions.GetPeople();
+			state.actions.GetPlanets();
+			state.actions.GetVehicles();
 			/**
 			 * EDIT THIS!
 			 * This function is the equivalent to "window.onLoad", it only runs once on the entire application lifetime

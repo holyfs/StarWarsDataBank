@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import"/workspace/react-hello-webapp/src/styles/Footer.css"
+import"../../styles/Footer.css"
 
 export const Footer = () => (
 	<footer className="footer mt-auto py-3 text-center">

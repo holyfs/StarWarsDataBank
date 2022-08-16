@@ -1,37 +1,67 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
+import { useParams } from "react-router-dom";
+import api from "../../Api/Api.js"
 
 const VehicleBio = (props) => {
+  const [description, setDescription] = useState({})
+  const [properties, setProperties]= useState({})
+  let { id } = useParams();
+  useEffect(()=>{
+    api.BioVehicle(id).then((results)=>{
+      return results.json()
+    }) .then((data)=>{
+      setProperties(data.result.properties)
+      setDescription(data.result)
+    }) 
+  },[])
   return (
-    <div className="card mb-3">
+    <div className="card pb-3" style={{ width: 80 + "rem", margin: "auto" }}>
+    <div className="card-Header">
       <div className="row g-0">
-        <div className="col-md-4">
-        <h5 className="card-title mt-2">Name{props.name}</h5>
+        <div className="col-md-8">
           <img
-            src="https://i5.walmartimages.com/asr/d3ee29f9-f9d3-4dd9-8ab4-92ee72c14c8b_1.4fedf076ee451dc45b60130669a613e2.jpeg"
+            src={`https://starwars-visualguide.com/assets/img/vehicles/${id}.jpg`}
             className="img-fluid rounded-start"
-            alt="..."
+            alt="Image Not Found 404"
           />
         </div>
         <div className="col-md-4">
-          <div className="card-body">
-            <p className="card-text">Pruebaaaaaa{props.Info}</p>
-            <p className="card-text">Pruebaaaaaa{props.Info}</p>
-            <p className="card-text">Pruebaaaaaa{props.Info}</p>
-            <p className="card-text">Pruebaaaaaa{props.Info}</p>
-            <p className="card-text">Pruebaaaaaa{props.Info}</p>
-          </div>
-        </div>
-        <div className="col-md-4">
-          <div className="card-body">
-            <p className="card-text">Pruebaaaaaa{props.Info}</p>
-            <p className="card-text">Pruebaaaaaa{props.Info}</p>
-            <p className="card-text">Pruebaaaaaa{props.Info}</p>
-            <p className="card-text">Pruebaaaaaa{props.Info}</p>
-            <p className="card-text">Pruebaaaaaa{props.Info}</p>
-          </div>
+          <h2 className="card-title mt-5">{!properties.name?<span>Loading...</span>:properties.name}</h2>
+          <p className="card-text me-3">
+          <strong>{description.description}</strong>
+          </p>
+          <div className="card-text me-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
+            unde eligendi nulla ipsa vero illo sit perferendis voluptatum
+            porro. Placeat velit ullam perferendis distinctio et voluptatem
+            ipsum facere, reiciendis quae? </div>
         </div>
       </div>
     </div>
+    <div className="card-body">
+      <div className="row">
+        <div className="col">
+          <h3 className="card-title mt-5">Model</h3>
+          <p className="card-text">{!properties.model?<span>Loading...</span>:properties.model}</p>
+        </div>
+        <div className="col">
+          <h3 className="card-title mt-5">Vehicle class</h3>
+          <p className="card-text">{!properties.vehicle_class?<span>Loading...</span>:properties.vehicle_class}</p>
+        </div>
+        <div className="col">
+          <h3 className="card-title mt-5">Manufacturer</h3>
+          <p className="card-text">{!properties.manufacturer?<span>Loading...</span>:properties.manufacturer}</p>
+        </div>
+        <div className="col">
+          <h3 className="card-title mt-5">Crew</h3>
+          <p className="card-text">{!properties.crew?<span>Loading...</span>:properties.crew}</p>
+        </div>
+        <div className="col">
+          <h3 className="card-title mt-5">Max atmosphering speed</h3>
+          <p className="card-text">{!properties.max_atmosphering_speed?<span>Loading...</span>:properties.max_atmosphering_speed}</p>
+        </div>
+      </div>
+    </div>
+  </div>
   );
 };
 
